@@ -1,0 +1,108 @@
+import React, { useState, useEffect, Component } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
+import { Button } from "@material-ui/core";
+import MainContainer from "../../components/shared/MainContainer";
+
+class  Edit extends Component() {
+  // const history = useHistory();
+  const { id } = useParams();
+  const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/superadmin/" + id)
+      .then((res) => {
+        // console.log("Print-showBookDetails-API-response: " + res.data);
+        setName(res.data.name);
+        setUserName(res.data.username);
+        setPassword(res.data.password);
+        setPasswordConfirm(res.data.PasswordConfirm);
+      })
+      .catch((err) => {
+        console.log(" Error ");
+      });
+
+    // eslint-disable-next-line
+  }, [id]);
+
+  return (
+    <MainContainer>
+      <Breadcrumb>
+        <BreadcrumbItem
+          onClick={() => history.push("/manage")}
+          style={{ cursor: "pointer" }}
+        >
+          Manage
+        </BreadcrumbItem>
+        <BreadcrumbItem active>Edit</BreadcrumbItem>
+      </Breadcrumb>
+      <h3>Edit Institute {id}</h3>
+      <div className="mt-4">
+      <Form>
+        <Row>
+          <Col>
+          
+            <FormGroup>
+              <Label for="exampleEmail">Name</Label>
+              <Input type="text" name="email" id="exampleEmail1" value={name} />
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <Label for="exampleEmail">User Name</Label>
+              <Input
+                type="text"
+                name="email"
+                id="exampleEmail2"
+                value={username}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <FormGroup>
+              <Label for="exampleEmail">Password</Label>
+              <Input
+                type="text"
+                name="email"
+                id="exampleEmail3"
+                value={password}
+              />
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <Label for="exampleEmail">Password Confirm</Label>
+              <Input
+                type="text"
+                name="email"
+                id="exampleEmail4"
+                value={passwordConfirm}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+        <div className="mt-5 d-flex justify-content-end">
+          <Button variant="contained">Submit</Button>
+        </div>
+        </Form>
+      </div>
+    </MainContainer>
+  );
+}
+
+export default Edit;

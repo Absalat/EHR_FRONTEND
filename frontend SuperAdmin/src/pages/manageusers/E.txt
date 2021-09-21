@@ -1,0 +1,322 @@
+import React, { useState, useEffect, Component } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
+import { Button } from "@material-ui/core";
+import MainContainer from "../../components/shared/MainContainer";
+import { Link } from "react-router-dom";
+
+
+function Edit() {
+  const history = useHistory();
+  const { id } = useParams();
+  const [name, setFirstName] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onChange = (e) => {
+    const { id, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      username: state.username,
+      password: state.password,
+    };
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/superadmin/admin/" + id)
+      .then((res) => {
+        // console.log("Print-showBookDetails-API-response: " + res.data);
+        setFirstName(res.data.name);
+        setUserName(res.data.username);
+        setPassword(res.data.password);
+      })
+      .catch((err) => {
+        console.log(" Error ");
+      });
+
+    // eslint-disable-next-line
+  }, [id]);
+}
+
+  return (
+    <MainContainer>
+      <Breadcrumb>
+        <BreadcrumbItem
+          onClick={() => history.push("/manage")}
+          style={{ cursor: "pointer" }}
+        >
+          Manage
+        </BreadcrumbItem>
+        <BreadcrumbItem active>Edit</BreadcrumbItem>
+      </Breadcrumb>
+      <h3>Edit User {name}</h3>
+      <div className="mt-4">
+        <Row>
+          <Col>
+            <FormGroup>
+              <Label for="exampleEmail">Full Name</Label>
+              <Input type="text" name="name" value={name} />
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <Label for="exampleEmail">User Name</Label>
+              <Input type="text" name="username" value={username} />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <FormGroup>
+              <Label for="exampleEmail">Password</Label>
+              <Input type="text" name="password" value={password} />
+            </FormGroup>
+          </Col>
+        </Row>
+        <div className="mt-5 d-flex justify-content-end">
+          <Button variant="contained">Submit</Button>
+        </div>
+      </div>
+    </MainContainer>
+  );
+}
+export default Edit;
+ axios
+      .put(
+        "http://localhost:8000/superadmin/update/" + this.props.match.params.id,
+        data
+      )
+
+      .then((res) => {
+        this.props.history.push("/manage");
+      })
+      .catch((err) => {
+        console.log("Error in update!");
+      });
+
+    axios
+      .get("http://localhost:8000/superadmin/admin-list")
+      .then((res) => {
+        // console.log("Print-showBookDetails-API-response: " + res.data);
+        this.setState({
+          admins: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(" Error ");
+      });
+  };
+
+
+
+
+
+
+
+
+
+
+
+  import React, { useState, useEffect, Component } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import axios from "axios";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
+import { Button } from "@material-ui/core";
+import MainContainer from "../../components/shared/MainContainer";
+import { Link } from "react-router-dom";
+
+class Edit extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      username: "",
+      password: "",
+    };
+  }
+  componentDidMount() {
+    console.log(this.props.match.params.id);
+    axios
+      .get(
+        "http://localhost:8000/superadmin/admin/" + this.props.match.params.id
+      )
+      .then((res) => {
+        // this.setState({...this.state, book: res.data})
+        this.setState({
+          name: res.data.name,
+          username: res.data.uaername,
+          password: res.data.password,
+        });
+      })
+      .catch((err) => {
+        console.log("Error from ");
+        console.log("Print id: " + this.props.match.params.id);
+      });
+  }
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      name: this.state.name,
+      username: this.state.username,
+      password: this.state.password,
+    };
+    console.log(data);
+
+    axios
+      .put(
+        "http://localhost:8000/superadmin/update/" + this.props.match.params.id,
+        data
+      )
+
+      .then((res) => {
+        this.props.history.push("/manage");
+      })
+      .catch((err) => {
+        console.log("Error in update!");
+      });
+
+    axios
+      .get("http://localhost:8000/superadmin/admin-list")
+      .then((res) => {
+        // console.log("Print-showBookDetails-API-response: " + res.data);
+        this.setState({
+          admins: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(" Error ");
+      });
+  };
+
+  render() {
+    return (
+      <MainContainer>
+        <Breadcrumb>
+          <BreadcrumbItem
+            //onClick={() => history.push("/manage")}
+            style={{ cursor: "pointer" }}
+          >
+            Manage
+          </BreadcrumbItem>
+          <BreadcrumbItem>Edit</BreadcrumbItem>
+        </Breadcrumb>
+        <h3>Edit Institute </h3>
+        <div className="mt-4">
+          <Form>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label for="exampleEmail">FUll Name</Label>
+                  <Input
+                    style={{
+                      width: "400px",
+                      height: "50px",
+                      fontSize: "18px",
+                      overflow: "hidden",
+                      resize: "none",
+
+                      boxShadow: "green",
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                    }}
+                    type="text"
+                    name="name"
+                    value={this.state.name}
+                    onChange={(e) => this.onChange(e)}
+                  />
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <Label for="exampleEmail">User Name</Label>
+                  <Input
+                    style={{
+                      width: "400px",
+                      height: "50px",
+                      fontSize: "18px",
+                      overflow: "hidden",
+                      resize: "none",
+
+                      boxShadow: "green",
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                    }}
+                    type="text"
+                    name="username"
+                    id="exampleEmail2"
+                    value={this.state.username}
+                    onChange={this.onChange}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row className="mt-4">
+              <Col>
+                <FormGroup>
+                  <Label for="exampleEmail">Password</Label>
+                  <Input
+                    style={{
+                      width: "400px",
+                      height: "50px",
+                      fontSize: "18px",
+                      overflow: "hidden",
+                      resize: "none",
+
+                      boxShadow: "green",
+                      marginTop: "10px",
+                      marginBottom: "10px",
+                    }}
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={this.onChange}
+                  />
+                </FormGroup>
+              </Col>
+              <Col></Col>
+            </Row>
+            <div className="mt-5 d-flex justify-content-end">
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
+            </div>
+          </Form>
+        </div>
+      </MainContainer>
+    );
+  }
+}
+
+export default Edit;

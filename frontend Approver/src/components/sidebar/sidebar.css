@@ -1,0 +1,50 @@
+.sidebar {
+  flex: 0px;
+  overflow-y: hidden;
+  position: fixed;
+  top: 0px;
+  margin-top: 0;
+  margin-bottom: 0%;
+  height: 100vh;
+  width: 228px;
+  background-color: #143c3f;
+}
+
+.sidebar a {
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.sidebarWrapper {
+  margin-top: 0;
+
+  padding: 50px;
+}
+
+.sidebarList {
+  padding: 10px;
+
+  margin: 0;
+  list-style: none;
+}
+
+.sidebarListItem {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 70px;
+  color: white;
+}
+
+.sidebarIcon {
+  margin-right: 10px;
+  color: white;
+}
+
+.active {
+  color: #e4c48f;
+}
